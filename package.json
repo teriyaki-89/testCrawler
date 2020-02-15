@@ -1,0 +1,23 @@
+{
+    "name": "testcrawler",
+    "version": "1.0.0",
+    "description": "test task",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon --no-warnings index.js"
+    },
+    "author": "iLyas",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1",
+        "jsdom": "^16.1.0",
+        "mongodb": "^3.2.3",
+        "mongoose": "^5.8.3",
+        "request": "^2.88.2",
+        "validator": "^12.1.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.2"
+    }
+}
