@@ -1,36 +1,54 @@
 const express = require("express");
 const router = new express.Router();
 
-const jsdom = require("jsdom");
 var request = require("request");
-const { JSDOM } = jsdom;
+cheerio = require("cheerio");
+
+const Url = require("../models/url");
 
 router.get("/", async (req, res) => {
+    function parse(url) {
+        request(
+            {
+                method: "GET",
+                url,
+                headers: {
+                    "User-Agent":
+                        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+                }
+            },
+            async (err, resp, body) => {
+                if (err) return res.status(500).send(err);
+                var $ = cheerio.load(body);
+                var h1 = stringifyArrayOfTags($, $("h1"), []);
+                var aHref = stringifyArrayOfTags($, $("a"), []);
+                const record = new Url({
+                    url,
+                    h1,
+                    aHref
+                });
+                try {
+                    let result = await record.saveUrl();
+                    res.status(200).send(result);
+                } catch (e) {
+                    res.status(500).send(e);
+                }
+            }
+        );
+    }
+
+    function stringifyArrayOfTags($, tag, arr) {
+        tag.each(function() {
+            let text = $(this)
+                .text()
+                .trim();
+            if (text !== "") arr.push(text);
+        });
+        return JSON.stringify(arr);
+    }
+
     const url = "https://" + req.query.url;
-
-    // JSDOM.fromURL(url).then(function(dom) {
-    //     //let h1 = dom.window.document.querySelector("a");
-    //     //console.log(dom.window.document.querySelectorAll("a"));
-    //     var aArr = dom.window.document.querySelectorAll("a");
-    //     // var h1Arr = dom.window.document.querySelectorAll("h1");
-    //     //console.log(dom.window.document);
-    //     // console.log(dom.serialize());
-    //     //console.log(dom.window);
-    //     aArr.forEach(item => {
-    //         console.log(item.textContent);
-    //     });
-    //     // h1Arr.forEach(item => {
-    //     //     //console.log(item.textContent);
-    //     // });
-
-    //     // var window = JSDOM(dom).createWindow();
-    //     // var h1Arr = window.document.querySelectorAll("h1");
-    //     // console.log(h1Arr);
-
-    //     res.status(200).send("123");
-    // });
-
-    //res.status(200).send(dom.window.document.querySelector("p").textContent);
+    parse(url);
 });
 
 module.exports = router;

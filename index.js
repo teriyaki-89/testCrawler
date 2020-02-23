@@ -1,5 +1,7 @@
 const express = require("express");
 
+require("./db/index");
+
 const app = express();
 
 const port = process.env.PORT || 3001;
