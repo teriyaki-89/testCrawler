@@ -11,6 +11,7 @@ mongoose.connect(
     (error, client) => {
         if (error) {
             console.log("unable to conenct to database");
+            return error;
         }
     }
 );
