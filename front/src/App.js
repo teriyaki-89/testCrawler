@@ -1,20 +1,30 @@
 import React, { Component } from "react";
+import Container from "./Container";
+import { observer } from "mobx-react";
+import UrlStore from "./store/index";
 
+export default
+@observer
 class CustomComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
+    async componentDidMount() {
+        this.getContent();
     }
 
-    async componentDidMount() {}
+    getContent() {
+        let url = "http://localhost:3001/urls";
+        fetch(url)
+            .then(r => r.json())
+            .then(data => {
+                data.map(row => {
+                    UrlStore.add(row);
+                });
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
 
     render() {
-        return (
-            <div>
-                <div>123</div>
-            </div>
-        );
+        return <Container></Container>;
     }
 }
-
-export default CustomComponent;
