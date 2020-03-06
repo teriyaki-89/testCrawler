@@ -22,6 +22,10 @@ const WrapperForClasses = props => {
 
 export default class extends React.Component {
     render() {
-        return <WrapperForClasses />;
+        return (
+            <div>
+                <WrapperForClasses />
+            </div>
+        );
     }
 }

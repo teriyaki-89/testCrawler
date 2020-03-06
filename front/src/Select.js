@@ -6,17 +6,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import TextField from "@material-ui/core/TextField";
 
 import { observer } from "mobx-react";
-import { toJS } from "mobx";
 import UrlStore from "./store/index";
 
 const WrapperForSelect = props => {
     const [val, setValue] = React.useState("");
     const inputLabel = React.useRef(null);
     const [labelWidth, setLabelWidth] = React.useState(0);
+    const [id, setID] = React.useState(-1);
     const handleChange = event => {
         setValue(event.target.value);
+        setID(event.target.value);
     };
     const useStyles = makeStyles(theme => ({
         formControl: {
@@ -29,9 +31,13 @@ const WrapperForSelect = props => {
         },
         InputLabel: {
             marginTop: "-10px"
+        },
+        TextField: {
+            marginTop: "25px"
         }
     }));
     const classes = useStyles();
+    console.log(val);
 
     return (
         <FormControl variant="outlined" className={classes.formControl}>
@@ -53,6 +59,25 @@ const WrapperForSelect = props => {
                 </MenuItem>
                 {props.urls}
             </Select>
+            <div className={classes.TextField}>
+                {id >= 0 && UrlStore.rows[id] ? (
+                    <TextField
+                        id="standard-H1"
+                        label="H1 tag"
+                        value={UrlStore.rows[id].h1}
+                    />
+                ) : (
+                    ""
+                )}
+            </div>
+
+            <div className={classes.TextField}>
+                <TextField
+                    id="standard-H2"
+                    label="H2 tag"
+                    defaultValue="Default Value"
+                />
+            </div>
         </FormControl>
     );
 };
@@ -60,14 +85,21 @@ const WrapperForSelect = props => {
 export default
 @observer
 class extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { val: null };
+    }
     render() {
         let urls = UrlStore.rows.map((item, index) => {
             return (
-                <MenuItem key={index} value={item.url}>
+                <MenuItem key={index} value={index}>
                     {item.url}
                 </MenuItem>
             );
         });
-        return <WrapperForSelect urls={urls}></WrapperForSelect>;
+
+        return (
+            <WrapperForSelect urls={urls} state={this.state}></WrapperForSelect>
+        );
     }
 }
