@@ -11,7 +11,7 @@ class CustomComponent extends React.Component {
     }
 
     getContent() {
-        let url = "http://localhost:3001/urls";
+        let url = UrlStore.server + "urls";
         fetch(url)
             .then(r => r.json())
             .then(data => {

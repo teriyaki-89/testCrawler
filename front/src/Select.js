@@ -35,12 +35,20 @@ const WrapperForSelect = props => {
         },
         TextField: {
             marginTop: "25px"
+        },
+        rootDiv: {
+            // display: "flex",
+            // flexFlow: "row wrap",
+            // justifyContent: "center",
+            // border: "1px solid green",
+            margin: "0 auto",
+            width: "300px"
         }
     }));
     const classes = useStyles();
 
     return (
-        <div>
+        <div className={classes.rootDiv}>
             <div>
                 <FormControl variant="outlined" className={classes.formControl}>
                     <InputLabel

@@ -28,7 +28,7 @@ urlSchema.methods.saveUrl = async function() {
     } else {
         let updateRecord = match;
         let allowedProperties = ["h1", "h2", "h3", "aHref"];
-        Object.keys(allowedProperties).forEach(key => {
+        allowedProperties.forEach(key => {
             updateRecord[key] = url[key];
         });
         await updateRecord.save();
