@@ -10,7 +10,8 @@ app.use(express.json());
 
 app.use(function(req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+    //res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", "http://139.99.237.158:8081");
 
     // Request methods you wish to allow
     res.setHeader(

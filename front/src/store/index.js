@@ -3,7 +3,7 @@ import { observable, computed, action } from "mobx";
 const server =
     process.env.NODE_ENV == "development"
         ? "http://localhost:3001/"
-        : "http://nodejs:3001/";
+        : "http://139.99.237.158:3001/";
 class Url {
     @observable rows = [];
     @observable server = server;
