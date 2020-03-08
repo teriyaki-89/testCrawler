@@ -4,13 +4,14 @@
     "description": "test task",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "dev": "nodemon --no-warnings index.js"
+        "start": "cross-env NODE_ENV=production node index.js ",
+        "dev": "cross-env NODE_ENV=development nodemon --no-warnings index.js "
     },
     "author": "iLyas",
     "license": "ISC",
     "dependencies": {
         "cheerio": "^1.0.0-rc.3",
+        "cross-env": "^7.0.2",
         "express": "^4.17.1",
         "mongodb": "^3.2.3",
         "mongoose": "^5.8.3",

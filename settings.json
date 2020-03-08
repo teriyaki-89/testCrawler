@@ -1,0 +1,32 @@
+{
+    "deploy": {
+        "targets": [
+            {
+                "type": "sftp",
+                "name": "My SFTP folder",
+                "description": "A SFTP folder",
+                "dir": "/",
+                "host": "139.99.237.158",
+                "port": 22,
+                "user": "root",
+                "password": "password",
+                "checkBeforeDeploy": true,
+                "mappings": [
+                    {
+                        "source": "/",
+                        "target": "/var/www/crawler"
+                    }
+                ]
+            }
+        ],
+        "packages": [
+            {
+                "name": "Version 2.3.4",
+                "description": "Package version 2.3.4",
+                "files": ["**/*", "/*"],
+                "exclude": ["node_modules/*", "front/node_modules/"],
+                "deployOnSave": true
+            }
+        ]
+    }
+}

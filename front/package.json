@@ -4,8 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack-dev-server --mode development --open",
-        "build": "webpack --mode production",
+        "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --open ",
+        "build": "cross-env NODE_ENV=production webpack --mode production ",
         "startServers": "concurrently --kill-others  \"npm run dev\""
     },
     "keywords": [],
@@ -39,6 +39,7 @@
         "@handsontable/react": "^3.1.0",
         "@material-ui/core": "^4.9.5",
         "babel-polyfill": "^6.26.0",
+        "cross-env": "^7.0.2",
         "mobx": "^5.14.0",
         "mobx-react": "^6.1.3"
     }

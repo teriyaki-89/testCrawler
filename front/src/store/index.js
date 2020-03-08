@@ -1,8 +1,12 @@
 import { observable, computed, action } from "mobx";
 
+const server =
+    process.env.NODE_ENV == "development"
+        ? "http://localhost:3001/"
+        : "http://nodejs:3001/";
 class Url {
     @observable rows = [];
-    @observable server = "http://localhost:3001/";
+    @observable server = server;
 
     @action add(row) {
         let match = this.rows.find(item => item.url == row.url);
